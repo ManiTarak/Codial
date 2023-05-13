@@ -5,6 +5,8 @@ const Port =8000;
 const router=require("./routes/index");
 
 const app=express();
+app.set('view engine','ejs');
+app.set('views','./views');
 app.use('/',router);
 
 app.listen(Port,function(err){
