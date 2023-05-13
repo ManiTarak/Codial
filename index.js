@@ -2,8 +2,10 @@
 const express= require("express");
 
 const Port =8000;
+const router=require("./routes/index");
 
 const app=express();
+app.use('/',router);
 
 app.listen(Port,function(err){
     if(err){
