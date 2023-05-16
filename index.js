@@ -3,6 +3,7 @@ const express= require("express");
 const Cookie_Parser=require("cookie-parser");
 
 const Port =8000;
+const db=require("./config/mongoose.js");
 const router=require("./routes/index");
 const app=express();
 
