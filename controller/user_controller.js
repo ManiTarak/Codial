@@ -43,3 +43,22 @@ module.exports.SignUp = function(req,res){
        title : "Codial | SignUp"
     });
 };
+
+module.exports.Create_Session=function(req,res){
+   User.find({'email':req.body.email}).then((user)=>{
+    if(user.length>0){
+        if(user[0].password==req.body.password){
+           return res.redirect("/user/profile");
+        }
+        else{
+            return res.redirect('back');
+        }
+    }
+    else{
+         return res.redirect('/user/signup');
+    }
+   }).catch((err)=>{
+    console.log("error while signing in ");
+    return ;
+   })
+}
