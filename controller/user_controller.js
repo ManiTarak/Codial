@@ -1,6 +1,18 @@
 const User=require("../models/user");
 module.exports.profile =function(req,res){
-    return res.end("<h1>THIS IS User Profile Page</h1>");
+    if(req.cookies.User_id){
+        User.findById(req.cookies.User_id).then((userData)=>{
+            return res.render("user_profile",{
+                title:"user profile",
+                userdata:userData
+            }).catch((error)=>{
+                console.log("error while searching for user in database for displaying profile of a user ");
+                return; 
+            });
+        })
+    }else{
+        return res.redirect('/user/signin');
+    }
 };
 
 module.exports.SignIn = function(req,res){
@@ -48,6 +60,8 @@ module.exports.Create_Session=function(req,res){
    User.find({'email':req.body.email}).then((user)=>{
     if(user.length>0){
         if(user[0].password==req.body.password){
+            console.log(user[0]._id);
+            res.cookie("User_id",user[0]._id);
            return res.redirect("/user/profile");
         }
         else{
